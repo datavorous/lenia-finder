@@ -1,8 +1,15 @@
 # Lenia design and simulation
 
-This project searches for patterns in a three-channel Lenia cellular automaton. It generates configurations, simulates them, scores the resulting behavior, and uses the scores to choose the next configurations. The simulator and mathematical search run without an image model. Text-guided and visual diversity searches use MobileCLIP2-S2.
+This project searches for patterns in a Lenia cellular automaton with three channels. It generates configurations. It simulates each one and scores its behavior. The scores guide the next search step. The simulator and mathematical search work without an image model. Text search and visual diversity search use MobileCLIP2-S2.
 
-The code is split by task: `simulation/` runs Lenia, `evaluation/` measures trajectories and image similarity, `search/` proposes configurations, and `experiments/` screens archives and makes reports. All commands below run from the repository root.
+The code has four parts:
+
+- `simulation/` runs Lenia.
+- `evaluation/` measures trajectories and image similarity.
+- `search/` proposes configurations.
+- `experiments/` screens archives and makes reports.
+
+Run the commands below from the repository root.
 
 ## Install
 
@@ -14,11 +21,11 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-For visual searches, install `requirements-visual.txt`. For plots and reports, install `requirements-report.txt`. On NVIDIA Linux, install the CUDA build of JAX that matches your driver; the recorded runs used `jax[cuda12]==0.4.38`.
+Install `requirements-visual.txt` for visual searches. Install `requirements-report.txt` for plots and reports. On NVIDIA Linux, install a CUDA build of JAX that matches your driver. The recorded runs used `jax[cuda12]==0.4.38`.
 
 ## Run
 
-Text-guided search for the original target:
+Search for the original text target:
 
 ```bash
 python -m search.target "a biological cell under the microscope" \
@@ -34,7 +41,7 @@ python -m search.illumination --archive-size 5000 --children 32 \
   --iterations 10000 --output runs/illumination
 ```
 
-Screen the saved 5,000-configuration archive, then search around its candidates:
+Screen the saved archive of 5,000 configurations. Then search around its candidates:
 
 ```bash
 ARCHIVE=archive/runs/vast-59037478/illumination-s2
@@ -43,13 +50,13 @@ python -m search.behavior "$ARCHIVE" runs/screen/stage-05000.csv \
   runs/neighborhood --phase neighborhood --evaluations 500000
 ```
 
-`search.behavior` also accepts `--phase qd` and `--phase random`. Use `python -m <module> --help` for other options. Searches write checkpoints to their output directories; add `--resume` to continue a visual search there. These full-size examples require substantial GPU time.
+`search.behavior` also accepts `--phase qd` and `--phase random`. Use `python -m <module> --help` for other options. Searches save checkpoints in their output directories. Add `--resume` to continue a visual search. These examples require substantial GPU time.
 
 ## Results and provenance
 
-Completed runs, checkpoints, videos, and source snapshots are in the local `archive/` directory. It is ignored by Git; new results in `runs/` are ignored too. The [mini-project report](docs/MINI_PROJECT_REPORT.md) summarizes the experiments, and the [audit](docs/AUDIT.md) records the source history. The [numerical results report](archive/runs/soliton-work/soliton-results/REPORT.md) contains screening thresholds and verified candidates. The reports' figures require the local archive.
+The local `archive/` directory contains completed runs, checkpoints, videos, and source snapshots. Git ignores this directory. Git also ignores new results in `runs/`. The [project report](docs/MINI_PROJECT_REPORT.md) summarizes the experiments. The [audit](docs/AUDIT.md) records the source history. The [numerical results report](archive/runs/soliton-work/soliton-results/REPORT.md) lists screening thresholds and verified candidates. The report figures require the local archive.
 
-Lenia dynamics and seed patterns come from [LeniaBreeder](https://leniabreeder.github.io/) through [ASAL](https://github.com/SakanaAI/asal). The visual search methods adapt ASAL; numerical screening draws on Hamon et al. and CARL. The original source checkouts are preserved in `archive/upstream/`.
+Lenia dynamics and seed patterns come from [LeniaBreeder](https://leniabreeder.github.io/) through [ASAL](https://github.com/SakanaAI/asal). The visual search methods adapt ASAL. Numerical screening draws on Hamon et al. and CARL. The original source checkouts are in `archive/upstream/`.
 
 ## Check
 
@@ -59,4 +66,4 @@ python -m tests.test_soliton_metrics
 python -m tests.test_illumination_selection
 ```
 
-The regression test uses saved checkpoints and the CPU reference fixture; it does not start a research run.
+The regression test uses saved checkpoints and a CPU reference fixture. It does not start a research run.
