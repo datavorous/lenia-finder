@@ -2,10 +2,10 @@ This is a historical audit of the original code layout. Since the 2026-11-05
 refactor, active modules live under simulation/, evaluation/, search/, and
 experiments/. Former lenia_search/ and scripts/ paths below refer to that
 original layout. The original workflow scripts are retained in
-archive/upstream/project-history/retired-workflow-scripts.tar.gz.
+../archive/upstream/project-history/retired-workflow-scripts.tar.gz.
 
 ASAL source: SakanaAI/asal, commit 677ba0ea4d3b3ca78273c9906c6e84d2b1481ce7.
-License: Apache-2.0, copied to LICENSE.
+License: Apache-2.0, copied to ../LICENSE.
 
 Preserved:
 - substrates/lenia.py and substrates/lenia_impl.py dynamics, including
@@ -45,7 +45,7 @@ checksum-based rsync dry run found no differences between local and remote
 outputs. Instance 58980056 was then destroyed; Vast listed no active instances.
 
 Illumination implementation (2026-11-04): `lenia_search/illuminate.py` adapts
-`archive/upstream/asal/main_illuminate.py` at the same source commit. It retains the
+`../archive/upstream/asal/main_illuminate.py` at the same source commit. It retains the
 zero-vector initialization, uniform parent sampling, Gaussian mutation with
 sigma 0.1, iterative removal by mean similarity to the two nearest surviving
 neighbors, and the original illumination loss (mean nearest-neighbor cosine).
