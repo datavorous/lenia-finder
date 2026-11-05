@@ -1,0 +1,9 @@
+-r requirements.txt
+pandas
+pyarrow
+matplotlib
+pillow
+imageio
+imageio-ffmpeg
+plotly
+umap-learn
