@@ -1,4 +1,4 @@
-# Lenia design and simulation
+# lenia-finder
 
 This project searches for patterns in a Lenia cellular automaton with three channels. It generates configurations. It simulates each one and scores its behavior. The scores guide the next search step. The simulator and mathematical search work without an image model. Text search and visual diversity search use MobileCLIP2-S2.
 
