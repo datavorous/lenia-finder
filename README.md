@@ -7,7 +7,7 @@ The code has four parts:
 - `simulation/` runs Lenia.
 - `evaluation/` measures trajectories and image similarity.
 - `search/` proposes configurations.
-- `experiments/` screens archives and makes reports.
+- `experiments/` screens archives and makes visualizations.
 
 Run the commands below from the repository root.
 
@@ -21,7 +21,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Install `requirements-visual.txt` for visual searches. Install `requirements-report.txt` for plots and reports. On NVIDIA Linux, install a CUDA build of JAX that matches your driver. The recorded runs used `jax[cuda12]==0.4.38`.
+Install `requirements-visual.txt` for visual searches. On NVIDIA Linux, install a CUDA build of JAX that matches your driver. The recorded runs used `jax[cuda12]==0.4.38`.
 
 ## Run
 
@@ -52,18 +52,8 @@ python -m search.behavior "$ARCHIVE" runs/screen/stage-05000.csv \
 
 `search.behavior` also accepts `--phase qd` and `--phase random`. Use `python -m <module> --help` for other options. Searches save checkpoints in their output directories. Add `--resume` to continue a visual search. These examples require substantial GPU time.
 
-## Results and provenance
+## Saved runs
 
-The local `archive/` directory contains completed runs, checkpoints, videos, and source snapshots. Git ignores this directory. Git also ignores new results in `runs/`. The [project report](docs/MINI_PROJECT_REPORT.md) summarizes the experiments. The [audit](docs/AUDIT.md) records the source history. The [numerical results report](archive/runs/soliton-work/soliton-results/REPORT.md) lists screening thresholds and verified candidates. The report figures require the local archive.
+The local `archive/` directory contains completed runs, checkpoints, videos, and source snapshots. Git ignores this directory. Git also ignores new results in `runs/`.
 
 Lenia dynamics and seed patterns come from [LeniaBreeder](https://leniabreeder.github.io/) through [ASAL](https://github.com/SakanaAI/asal). The visual search methods adapt ASAL. Numerical screening draws on Hamon et al. and CARL. The original source checkouts are in `archive/upstream/`.
-
-## Check
-
-```bash
-python -m tests.test_regression
-python -m tests.test_soliton_metrics
-python -m tests.test_illumination_selection
-```
-
-The regression test uses saved checkpoints and a CPU reference fixture. It does not start a research run.
